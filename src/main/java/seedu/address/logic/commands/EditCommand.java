@@ -9,7 +9,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SPECIALTY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.SPECIALIST_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -30,6 +29,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonType;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Specialist;
 import seedu.address.model.person.Specialty;
@@ -68,11 +68,14 @@ public class EditCommand extends Command {
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
 
+    private final PersonType personType;
+
     /**
-     * @param index of the person in the filtered person list to edit
+     * @param index                of the person in the filtered person list to edit
      * @param editPersonDescriptor details to edit the person with
+     * @param personType The type of person being edited i.e. patient or specialist
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor, PersonType personType) {
         requireNonNull(index);
         requireNonNull(editPersonDescriptor);
 
@@ -82,6 +85,7 @@ public class EditCommand extends Command {
         } else {
             this.editPersonDescriptor = new EditSpecialistDescriptor((EditSpecialistDescriptor) editPersonDescriptor);
         }
+        this.personType = personType;
     }
 
     @Override
@@ -113,7 +117,7 @@ public class EditCommand extends Command {
         }
 
         model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredPersonList(personType.getSearchPredicate());
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
     }
 

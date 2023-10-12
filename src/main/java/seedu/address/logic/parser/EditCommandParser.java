@@ -74,7 +74,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (!editPatientDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
-        return new EditCommand(index, editPatientDescriptor);
+        return new EditCommand(index, editPatientDescriptor, PersonType.PATIENT);
     }
     private EditCommand parseSpecialist(String args) throws ParseException {
         ArgumentMultimap argMultimap =
@@ -114,7 +114,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (!editSpecialistDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
-        return new EditCommand(index, editSpecialistDescriptor);
+        return new EditCommand(index, editSpecialistDescriptor, PersonType.SPECIALIST);
     }
 
     /**

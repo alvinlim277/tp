@@ -5,9 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Patient;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Specialist;
 
 /**
  * The API of the Model component.
@@ -15,13 +13,6 @@ import seedu.address.model.person.Specialist;
 public interface Model {
     /** {@code Predicate} that always evaluates to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-
-    /** {@code Predicate} that evaluates to true when {@code Person} is a {@code Patient}*/
-    Predicate<Person> PREDICATE_SHOW_ALL_PATIENTS = person -> person instanceof Patient;
-
-    /** {@code Predicate} that evaluates to true when {@code Person} is a {@code Specialist}*/
-    Predicate<Person> PREDICATE_SHOW_ALL_SPECIALISTS = person -> person instanceof Specialist;
-
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
